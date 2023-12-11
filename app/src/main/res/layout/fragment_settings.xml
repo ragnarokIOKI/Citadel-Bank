@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/downSet"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/aarrow_down" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:text="Настройки"
+                />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text1"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/FIOlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/FIOedit"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+
+                        android:hint="ФИО"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:id="@+id/PassportSerlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/PassportSeredit"
+                        android:inputType="number"
+                        android:layout_width="140dp"
+                        android:layout_height="70dp"
+                        android:hint="Серия"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="10dp"
+                        ></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/PassportNumlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/PassportNumedit"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="Номер паспорта"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Birthlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Birthedit"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:hint="Дата рождения"
+                        android:clickable="true"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/loginLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loginedit"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="Логин"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/exitsystem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Выход из системы"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/round"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="16dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:background="@drawable/mainbutton"
+                    android:id="@+id/savesettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сохранить"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="16dp"/>
+            </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</FrameLayout>

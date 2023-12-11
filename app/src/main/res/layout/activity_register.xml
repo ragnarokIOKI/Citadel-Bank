@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register"
+    android:background="@drawable/ornament">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="РЕГИСТРАЦИЯ"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="34sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/FIOlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/FIOedit"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+
+                        android:hint="ФИО"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:id="@+id/PassportSerlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/PassportSeredit"
+                        android:inputType="number"
+                        android:layout_width="140dp"
+                        android:layout_height="70dp"
+                        android:hint="Серия"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="10dp"
+                        ></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/PassportNumlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/PassportNumedit"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="Номер паспорта"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="true"
+                    android:id="@+id/Birthlayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Birthedit"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:hint="Дата рождения"
+                        android:clickable="true"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/loginLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loginedit"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="Логин"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true"
+                    android:textAlignment="center"
+                    android:id="@+id/passwordLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/passwordedit"
+                        android:layout_height="70dp"
+                        android:hint="Пароль"
+                        android:inputType="textPassword"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true"
+                    android:textAlignment="center"
+                    android:id="@+id/repeatLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/repeatpassword"
+                        android:layout_height="70dp"
+                        android:hint="Повторите пароль"
+                        android:inputType="textPassword"
+                        android:textAlignment="center"
+                        android:textSize="18sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_margin="15dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/auth"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Зарегистрироваться"
+                    android:background="@drawable/mainbutton"
+                    android:textSize="18dp"></androidx.appcompat.widget.AppCompatButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="15dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/logEnter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Уже есть аккаунт?"
+                    android:textSize="16dp"
+                    android:background="@drawable/dopbutton"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

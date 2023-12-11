@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkboxCard"/>
+
+    <TextView
+        android:id="@+id/numberAccCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="test"
+        app:flow_verticalAlign="center"
+        android:padding="5dp"
+        app:layout_constraintStart_toEndOf="@+id/checkboxCard"
+        android:textSize="18dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

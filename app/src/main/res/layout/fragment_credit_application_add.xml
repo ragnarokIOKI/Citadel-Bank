@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:elevation="15dp"
+    app:cardCornerRadius="5dp"
+    tools:context=".UserMenus.CreditApplicationAddFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Желаемая сумма кредита">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextAmountCredit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Желаемая процентная ставка">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDesiredPercentageCredit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Кнопка "Добавить" -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAddCredit"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mainbutton"
+            android:text="Добавить" />
+
+        <!-- Кнопка "Отмена" -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonCancelCredit"
+            android:background="@drawable/dopbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Отмена" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

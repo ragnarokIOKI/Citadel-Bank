@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item android:id="@+id/first"
+        android:icon="@drawable/analitycs"
+        android:title="Меню"/>
+
+    <item android:id="@+id/sec"
+        android:icon="@drawable/balanse"
+        android:title="Накопления"/>
+
+</menu>

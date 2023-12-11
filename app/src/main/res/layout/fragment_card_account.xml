@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UserMenus.CardAccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/rvCards"/>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:id="@+id/r">
+
+            <ImageView
+                android:id="@+id/downTran"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/aarrow_down" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:text="Счета" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text1"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:id="@+id/rvAccounts"
+            android:layout_margin="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Открыть счёт"
+                android:textSize="18dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:textAlignment="center"
+                android:layout_centerInParent="true"
+                android:background="@drawable/mainbutton"
+                android:src="@drawable/baseline_add_circle_outline_24" />
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

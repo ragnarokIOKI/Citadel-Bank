@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">BankAndroid</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TitleBank">Цитадель-Банк</string>
+
+    <string-array name="language_array">
+        <item>Русский</item>
+        <item>English</item>
+        <item>Espanola</item>
+        <item>Deutch</item>
+        <item>Francais</item>
+    </string-array>
+
+    <string-array name="font_array">
+        <item>Monospace</item>
+        <item>Calibri</item>
+        <item>Roboto-Regular</item>
+        <item>OpenSans</item>
+        <item>TimesNewRoman</item>
+    </string-array>
+
+    <string-array name="block_array">
+        <item>Украли или потерялась</item>
+        <item>Подозреваю мошенничество</item>
+        <item>Её захватил банкомат</item>
+        <item>Я так хочу</item>
+        <item>Не пользуюсь</item>
+    </string-array>
+
+</resources>
