@@ -40,7 +40,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.txt_number.setText(card.getIdCard());
         holder.txt_holder.setText(card.getCardHolder());
         holder.txt_val.setText(card.getValidity());
-        holder.txt_ccv.setText(card.getCcv());
+        holder.txt_ccv.setText("***");
 
         char firstDigit = holder.txt_number.getText().charAt(0);
 
@@ -71,6 +71,9 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
                     holder.txt_ccv.setText(card.getCcv());
                 } else {
                     holder.txt_ccv.setText("***");
+                }
+                if (card.isCardDeleted() != true) {
+                    holder.txt_ccv.setText("---");
                 }
             }
         });

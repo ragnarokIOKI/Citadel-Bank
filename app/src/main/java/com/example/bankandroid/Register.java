@@ -1,6 +1,7 @@
 package com.example.bankandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -15,9 +16,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bankandroid.Models.Key;
+import com.example.bankandroid.Models.LogInModel;
 import com.example.bankandroid.Models.User;
+import com.example.bankandroid.UserMenus.CardAccountFragment;
 import com.example.bankandroid.Utility.ApiInterface;
 import com.example.bankandroid.Utility.Configurator;
+import com.example.bankandroid.Utility.LogInHelper;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
@@ -38,6 +42,7 @@ public class Register extends AppCompatActivity {
     boolean isValid = true;
     String fio, firstName, lastName, middleName;
     String[] nameParts;
+    LogInHelper logInHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -339,7 +344,15 @@ public class Register extends AppCompatActivity {
                                    public void onResponse(Call<Key> call, Response<Key> response) {
                                        int ke = response.body().getId();
                                        String token = response.body().getAccess_token();
-                                       Toast.makeText(getApplicationContext(), "Успешная регистрация", Toast.LENGTH_SHORT).show();
+                                       Fragment usFrag = new CardAccountFragment(ke);
+                                       SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                                       editor.putString("token", response.body().getAccess_token());
+                                       editor.putInt("id", response.body().getId());
+                                       editor.apply();
+                                       LogInModel log = new LogInModel(loginedit.getText().toString(), passedit.getText().toString());
+                                       logInHelper.saveLogin(loginedit.getText().toString());
+                                       logInHelper.savePassword(passedit.getText().toString());
                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class).putExtra("id", ke);
                                        startActivity(intent);
                                    }
