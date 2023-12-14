@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Configurator {
-    private static String URL = "https://192.168.100.46:7154/";
+    private static String URL = "https://192.168.75.46:7154/";
     private static Retrofit retrofit = null;
 
     public static  Retrofit buildRequest() {

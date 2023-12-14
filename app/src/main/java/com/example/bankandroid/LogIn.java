@@ -119,8 +119,6 @@ public class LogIn extends AppCompatActivity {
         Enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //startActivity(intent);
                 if (editlog.getText().toString().isEmpty()) {
                     editlog.setError("Поле не может быть пустым.");
                     isValid = false;
@@ -152,7 +150,6 @@ public class LogIn extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Ошибка клиента", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-
                                 @Override
                                 public void onFailure(Call<Key> call, Throwable t) {
                                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
