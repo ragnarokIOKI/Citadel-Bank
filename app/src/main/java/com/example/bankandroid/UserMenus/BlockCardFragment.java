@@ -45,6 +45,8 @@ public class BlockCardFragment extends Fragment {
     int idUs;
     String[] idsToArchive = new String[] {};
     String[] idsToArchive2 = new String[] {};
+    ArrayList<Card> allCards;
+    ArrayList<Card> allCards2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +69,11 @@ public class BlockCardFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("myPrefs", MODE_PRIVATE);
         idUs = sharedPreferences.getInt("id", 0);
 
+        allCards = new ArrayList<>();
+        allCards2 = new ArrayList<>();
+
+        fetchDataAndUpdateView();
+
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,92 +84,6 @@ public class BlockCardFragment extends Fragment {
                 fragmentTransaction.replace(R.id.fragment_layout, newFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-            }
-        });
-
-        Call<ArrayList<Account>> getAccounts = Interface.getAccount(idUs, true);
-        getAccounts.enqueue(new Callback<ArrayList<Account>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Account>> call, Response<ArrayList<Account>> response) {
-                if (response.isSuccessful()) {
-
-                    ArrayList<Card> allCards = new ArrayList<>();
-                    rv.setLayoutManager(new LinearLayoutManager(getContext()));
-                    rv.setHasFixedSize(true);
-                    adapterC = new CardBlockRecyclerAdapter(getContext(), allCards);
-                    rv.setAdapter(adapterC);
-
-                    for (Account account : response.body()) {
-                        String accountNumber = account.getIdAccount();
-                        Call<ArrayList<Card>> getCards = Interface.getCard(accountNumber, true);
-                        getCards.enqueue(new Callback<ArrayList<Card>>() {
-
-                            @Override
-                            public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
-                                if(response.isSuccessful()){
-                                    ArrayList<Card> listCards = response.body();
-                                    for (Card card : listCards) {
-                                        if (!containsCard(allCards, card)) {
-                                            allCards.add(card);
-                                        }
-                                    }
-                                    adapterC.notifyDataSetChanged();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
-                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
-                }
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Account>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Call<ArrayList<Account>> getBlockAccounts = Interface.getAccount(idUs, false);
-        getBlockAccounts.enqueue(new Callback<ArrayList<Account>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Account>> call, Response<ArrayList<Account>> response) {
-                if (response.isSuccessful()) {
-
-                    ArrayList<Card> allUNCards = new ArrayList<>();
-                    UNrv.setLayoutManager(new LinearLayoutManager(getContext()));
-                    UNrv.setHasFixedSize(false);
-                    adapter2 = new CardUNBlockRecyclerAdapter(getContext(), allUNCards);
-                    UNrv.setAdapter(adapter2);
-
-                    for (Account account : response.body()) {
-                        String accountNumber = account.getIdAccount();
-                        Call<ArrayList<Card>> getCards = Interface.getCard(accountNumber, false);
-                        getCards.enqueue(new Callback<ArrayList<Card>>() {
-
-                            @Override
-                            public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
-                                if(response.isSuccessful()){
-                                    ArrayList<Card> listCards = response.body();
-                                    allUNCards.addAll(listCards);
-                                    adapter2.notifyDataSetChanged();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
-                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
-                }
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Account>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -178,7 +99,6 @@ public class BlockCardFragment extends Fragment {
                 idsToArchive = idsList.toArray(new String[0]);
 
                 Call<ArrayList<Card>> call = Interface.deleteCards(idsToArchive, cradblock_reasonSpinner.getSelectedItem().toString());
-
                 call.enqueue(new Callback<ArrayList<Card>>() {
                     @Override
                     public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
@@ -209,7 +129,6 @@ public class BlockCardFragment extends Fragment {
                 idsToArchive2 = idsList2.toArray(new String[0]);
 
                 Call<ArrayList<Card>> call = Interface.returnCards(idsToArchive2);
-
                 call.enqueue(new Callback<ArrayList<Card>>() {
                     @Override
                     public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
@@ -236,23 +155,47 @@ public class BlockCardFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<Account>> call, Response<ArrayList<Account>> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<Card> allCards = new ArrayList<>();
+
+                    allCards.clear();
+                    allCards2.clear();
+
+                    rv.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rv.setHasFixedSize(true);
+                    adapterC = new CardBlockRecyclerAdapter(getContext(), allCards);
+                    rv.setAdapter(adapterC);
+
+                    UNrv.setLayoutManager(new LinearLayoutManager(getContext()));
+                    UNrv.setHasFixedSize(true);
+                    adapter2 = new CardUNBlockRecyclerAdapter(getContext(), allCards2);
+                    UNrv.setAdapter(adapter2);
+
                     for (Account account : response.body()) {
                         String accountNumber = account.getIdAccount();
                         Call<ArrayList<Card>> getCards = Interface.getCard(accountNumber, true);
                         getCards.enqueue(new Callback<ArrayList<Card>>() {
-
                             @Override
                             public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
                                 if(response.isSuccessful()){
                                     ArrayList<Card> listCards = response.body();
-                                    for (Card card : listCards) {
-                                        if (!containsCard(allCards, card)) {
-                                            allCards.add(card);
-                                        }
-                                    }
-                                    adapterC = new CardBlockRecyclerAdapter(getContext(), allCards);
-                                    rv.setAdapter(adapterC);
+                                    allCards.addAll(listCards);
+                                    adapterC.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
+                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        Call<ArrayList<Card>> getCards2 = Interface.getCard(accountNumber, false);
+                        getCards2.enqueue(new Callback<ArrayList<Card>>() {
+                            @Override
+                            public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
+                                if(response.isSuccessful()){
+                                    ArrayList<Card> listCards2 = response.body();
+                                    allCards2.addAll(listCards2);
+                                    adapter2.notifyDataSetChanged();
                                 }
                             }
 
@@ -262,44 +205,6 @@ public class BlockCardFragment extends Fragment {
                             }
                         });
                     }
-
-                }
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Account>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Call<ArrayList<Account>> getBlockAccounts = Interface.getAccount(idUs, false);
-        getBlockAccounts.enqueue(new Callback<ArrayList<Account>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Account>> call, Response<ArrayList<Account>> response) {
-                if (response.isSuccessful()) {
-                    ArrayList<Card> allUNCards = new ArrayList<>();
-                    for (Account account : response.body()) {
-                        String accountNumber = account.getIdAccount();
-                        Call<ArrayList<Card>> getCards = Interface.getCard(accountNumber, false);
-                        getCards.enqueue(new Callback<ArrayList<Card>>() {
-
-                            @Override
-                            public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
-                                if(response.isSuccessful()){
-                                    allUNCards.clear();
-                                    ArrayList<Card> listCards = response.body();
-                                    allUNCards.addAll(listCards);
-                                    adapter2 = new CardUNBlockRecyclerAdapter(getContext(), allUNCards);
-                                    UNrv.setAdapter(adapter2);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
-                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
                 }
             }
             @Override
@@ -308,6 +213,7 @@ public class BlockCardFragment extends Fragment {
             }
         });
     }
+
     private boolean containsCard(ArrayList<Card> list, Card card){
         for (Card c : list){
             if (c.getIdCard().equals(card.getIdCard())){
