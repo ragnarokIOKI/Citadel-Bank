@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BankWpf.AdminWindow" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>ACTYxeEwUTjAyonQR5ACxD7oRgJAAbOAiCjAEVhBEAc=</HashCode>
+      <FileName>AdminWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.App">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.AccountApplicationConverter" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\AccountApplicationConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.AccountConverter" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Converters\AccountConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.AccountTypesConverter" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Converters\AccountTypesConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.ApplicationStatusConverter" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ApplicationStatusConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.CreditAgreementConverter" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CreditAgreementConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.CreditApplicationConverter" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CreditApplicationConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.RoleConverter" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\RoleConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.TransactionTypesConverter" BaseTypeListCollapsed="true">
+    <Position X="18" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\TransactionTypesConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.UsersConverter" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\UsersConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.DataGridHandler">
+    <Position X="14.5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataGridHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAEAAAAAAEAAACCAAAAAAAACAAAAAAAAAAACA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BankWpf.Token">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RefreshToken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.Account">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAEAgAAAAEAAAAAAAgAAAACAAAAAI=</HashCode>
+      <FileName>Models\Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.AccountApplication">
+    <Position X="6.75" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIQAAIAAAAAAAAIAAAAAAAAAAAAAAQAAAAAAAQAAA=</HashCode>
+      <FileName>Models\AccountApplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.AccountApplicationHistory">
+    <Position X="18" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAEAFAAAAQAAAAQAAAAAACAAAAA=</HashCode>
+      <FileName>Models\AccountApplicationHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.AccountType">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAgAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AccountType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.ApplicationStatus">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Models\ApplicationStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.Card">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAIAAAAAgAAAAAAAQAAAAAAAAAgABAAABA=</HashCode>
+      <FileName>Models\Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.CreditAgreement">
+    <Position X="3.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQgAAAEAAAAAAAAAAAAAABAAAAgAAAQEAAA=</HashCode>
+      <FileName>Models\CreditAgreement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.CreditAgreementHistory">
+    <Position X="5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABAAAAAAAAAAEAlAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreditAgreementHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.CreditApplication">
+    <Position X="11" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAABAAAAAAAAAAAAAAAIABAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreditApplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.CreditApplicationHistory">
+    <Position X="18" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAEAFAAAAAABAAQAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\CreditApplicationHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.Role">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.Transaction">
+    <Position X="12.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAIAAAAAAAAAAAAAAAAAAAACCAAgAAAAAAQA=</HashCode>
+      <FileName>Models\Transaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.TransactionType">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\TransactionType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankWpf.Models.User">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAkoACAAAAIAAAAAQAAAAAAAIAAACAABQAAAAAIA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

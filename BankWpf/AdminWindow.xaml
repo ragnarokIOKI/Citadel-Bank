@@ -1,0 +1,648 @@
+﻿<Window x:Class="BankWpf.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BankWpf"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}"
+         MinHeight="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" MinWidth="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}"
+        Title="Окно Администратора" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontSize="25" Closing="Window_Closing">
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/_back.png" />
+    </Window.Background>
+    <Window.Resources>
+        <local:RoleConverter x:Key="RoleConverter"/>
+        <local:AccountConverter x:Key="AccountConverter"/>
+        <local:TransactionTypesConverter x:Key="TransactionTypesConverter"/>
+        <local:CreditApplicationConverter x:Key="CreditApplicationsConverter"/>
+        <local:AccountApplicationConverter x:Key="AccountApplicationsConverter"/>
+        <local:CreditAgreementConverter x:Key="CreditAgreementsConverter"/>
+        <local:AccountTypesConverter x:Key="AccountTypesConverter"/>
+        <local:UsersConverter x:Key="UsersConverter"/>
+        <local:ApplicationStatusConverter x:Key="ApplicationStatusConverter"/>
+    </Window.Resources>
+    <Grid>
+        <TabControl  Style="{StaticResource TabControlStyle}" AllowDrop="True" IsTextSearchEnabled="True" TabStripPlacement="Left">
+            <TabItem Header="База данных" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="doBackUp" Click="doBackUp_Click" Grid.Row="0" Style="{StaticResource MainButtonStyle}" Margin="15">
+                        <TextBlock Text="Создать BackUp" TextWrapping="Wrap"/>
+                    </Button>
+                    <Button x:Name="doRestore" Click="doRestore_Click" Grid.Row="1" Style="{StaticResource MainButtonStyle}" Margin="15">
+                        <TextBlock Text="Восстановить базу данных" TextWrapping="Wrap"/>
+                    </Button>
+                    <Button x:Name="exitSys" Click="exitSys_Click" Grid.Row="2" Style="{StaticResource DopButtonStyle}" Margin="15">
+                        <TextBlock Text="Выйти из системы" TextWrapping="Wrap"/>
+                    </Button>
+                    
+                    <Grid Grid.Column="1" Grid.RowSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="ExportTransactions" Click="ExportTransactions_Click" Grid.Row="0" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Экспорт транзакций" TextWrapping="Wrap"/>
+                        </Button>
+
+                        <Button x:Name="ExportAccounts" Click="ExportAccounts_Click" Grid.Row="1" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Экспорт счетов" TextWrapping="Wrap"/>
+                        </Button>
+
+                        <Button x:Name="ExportCredits" Click="ExportCredits_Click" Grid.Row="2" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Экспорт кредитных договоров" TextWrapping="Wrap"/>
+                        </Button>
+
+                        <Button x:Name="ExportAccApplications" Click="ExportAccApplications_Click" Grid.Row="3" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Экспорт заявок на открытие счёта" TextWrapping="Wrap"/>
+                        </Button>
+
+                        <Button x:Name="ExportCredApplications" Click="ExportCredApplications_Click" Grid.Row="5" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Экспорт заявок на кредит" TextWrapping="Wrap"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Grid.RowSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="ImportTransactions" Click="ImportTransactions_Click" Grid.Row="0" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Импорт транзакций" TextWrapping="Wrap"/>
+                        </Button>
+                        <Button x:Name="ImportAccounts" Click="ImportAccounts_Click" Grid.Row="1" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Импорт счетов" TextWrapping="Wrap"/>
+                        </Button>
+                        <Button x:Name="ImportCredits" Click="ImportCredits_Click" Grid.Row="2" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Импорт кредитных договоров" TextWrapping="Wrap"/>
+                        </Button>
+                        <Button x:Name="ImportAccApplications" Click="ImportAccApplications_Click" Grid.Row="3" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Импорт заявок на открытие счёта" TextWrapping="Wrap"/>
+                        </Button>
+                        <Button x:Name="ImportCredApplications" Click="ImportCredApplications_Click" Grid.Row="5" Style="{StaticResource MainButtonStyle}" Margin="10">
+                            <TextBlock Text="Импорт заявок на кредит" TextWrapping="Wrap"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Транзакции" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="4*"></RowDefinition>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnTransactionMinus" FontSize="25" Content="История списаний" Margin="7" Style="{StaticResource MainButtonStyle}" Click="btnTransactionMinus_Click"/>
+                        <Button x:Name="btnTransactionPlus" FontSize="25" Content="История начислений" Grid.Column="2" Margin="7" Style="{StaticResource MainButtonStyle}" Click="btnTransactionPlus_Click"/>
+                        <Button x:Name="btnTransactionAll" FontSize="25" Content="Общая история" Grid.Column="1" Margin="7" Style="{StaticResource MainButtonStyle}" Click="btnTransactionAll_Click"/>
+
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.Column="3">Архив</TextBlock>
+                        <CheckBox x:Name="chArchiveTransaction" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="chArchiveTransaction_Checked" Unchecked="chArchiveTransaction_Unchecked"></CheckBox>
+
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource DataGridStyle}" x:Name="dgTransactions" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgTransaction_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding NameTransaction, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Дата транзакции" Binding="{Binding DateTransaction, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Сумма транзакции" Binding="{Binding SummTransaction, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Счёт" Binding="{Binding TransactionAccountId, Converter={StaticResource AccountConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Вид" Binding="{Binding TransactionTypeId, Converter={StaticResource TransactionTypesConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBlockStyle}">Название транзакции</TextBlock>
+                    <TextBox x:Name="NameTransaction" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}">Дата транзакции</TextBlock>
+                    <DatePicker x:Name="DateTransaction" Grid.Row="3" Grid.Column="1" Margin="25" FontFamily="Consolas" FontSize="18"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}">Сумма транзакции</TextBlock>
+                    <TextBox x:Name="SumTransaction" Grid.Row="5" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}">Счёт списания/пополнения</TextBlock>
+                    <ComboBox Style="{StaticResource ComboBoxStyle}" x:Name="cmbAccountTransaction" Grid.Row="5" Grid.Column="2" Margin="25"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockStyle}">Вид транзакции</TextBlock>
+                    <ComboBox Style="{StaticResource ComboBoxStyle}" x:Name="cmbTypeTransaction" Grid.Row="7" Grid.Column="0" Margin="25" />
+
+                    <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0 10 0 10">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Click="btnAddTransaction_Click" Margin="10 0 10 0" x:Name="btnAddTransaction" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnChangeTransaction_Click"  Margin="10 0 10 0" x:Name="btnChangeTransaction" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnDeleteTransaction_Click"  Margin="10 0 10 0" x:Name="btnDeleteTransaction" Grid.Column="2" Content="Архивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnUnArchiveTransaction_Click"  Margin="10 0 10 0" x:Name="btnUnArchiveTransaction" Grid.Column="3" Content="Разархивировать" Style="{StaticResource DopButtonStyle}"></Button>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Журнализация" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Style="{StaticResource DataGridStyle}" x:Name="dgCreditApplicationHistory" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgUser_SelectionChanged" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Заявка на открытие кредита" Binding="{Binding CreditApplicationId, Converter={StaticResource CreditApplicationsConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Вид данных" Binding="{Binding ChangeType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Что изменилось" Binding="{Binding ChangedColumn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Старое значение" Binding="{Binding OldValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Новое значение" Binding="{Binding NewValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <DataGrid Style="{StaticResource DataGridStyle}" x:Name="dgCreditAgreementHistory" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgUser_SelectionChanged" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Кредитный договор" Binding="{Binding CreditAgreementId, Converter={StaticResource CreditAgreementsConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Вид данных" Binding="{Binding ChangeType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Что изменилось" Binding="{Binding ChangedColumn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Старое значение" Binding="{Binding OldValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Новое значение" Binding="{Binding NewValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <DataGrid Style="{StaticResource DataGridStyle}" x:Name="dgAccountApplicationHistory" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgUser_SelectionChanged" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Заявка на открытие счёта" Binding="{Binding AccountApplicationId, Converter={StaticResource AccountApplicationsConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Вид данных" Binding="{Binding ChangeType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Что изменилось" Binding="{Binding ChangedColumn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Старое значение" Binding="{Binding OldValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Новое значение" Binding="{Binding NewValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Пользователи" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="4*"></RowDefinition>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox  x:Name="tbSearchUser" TextChanged="tbSearchUser_TextChanged"  Grid.Row="0" Style="{StaticResource MaterialTextBox}"></TextBox>
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.Column="1">Архив</TextBlock>
+                    <CheckBox x:Name="chArchive" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="chArchive_Checked"  Unchecked="chArchive_Unchecked"></CheckBox>
+
+                    <DataGrid Style="{StaticResource DataGridStyle}" x:Name="dgUser" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgUser_SelectionChanged" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="ФИО">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding FirstName}" Margin="0,0,5,0"/>
+                                            <TextBlock Text="{Binding SecondName}" Margin="0,0,5,0"/>
+                                            <TextBlock Text="{Binding MiddleName}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Серия паспорта" Binding="{Binding PassportSeries, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Номер паспорта" Binding="{Binding PassportNumber, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Логин" Binding="{Binding Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Пароль" Binding="{Binding Password, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Соль" Binding="{Binding Salt, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Должность" Binding="{Binding RoleId, Converter={StaticResource RoleConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBlockStyle}">Фамилия</TextBlock>
+                    <TextBox x:Name="FUser" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}">Имя</TextBlock>
+                    <TextBox x:Name="IUser" Grid.Row="3" Grid.Column="1" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource TextBlockStyle}">Отчество</TextBlock>
+                    <TextBox x:Name="OUser" Grid.Row="3" Grid.Column="2" Style="{StaticResource MaterialTextBox}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}">Серия паспорта</TextBlock>
+                    <TextBox x:Name="SerPassUser" Grid.Row="5" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}">Номер паспорта</TextBlock>
+                    <TextBox x:Name="NumPassUser" Grid.Row="5" Grid.Column="1" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="2" Style="{StaticResource TextBlockStyle}">Дата рождения</TextBlock>
+                    <DatePicker x:Name="BirthdayUser" Grid.Row="5" Grid.Column="2" Margin="25" FontFamily="Consolas" FontSize="18"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockStyle}">Логин</TextBlock>
+                    <TextBox x:Name="LoginUser" Grid.Row="7" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}">Пароль</TextBlock>
+                    <TextBox x:Name="PasswordUser" Grid.Row="7" Grid.Column="1" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Grid.Row="6" Grid.Column="2" Style="{StaticResource TextBlockStyle}">Должность</TextBlock>
+                    <ComboBox Style="{StaticResource ComboBoxStyle}" x:Name="cmbRoleUser" Grid.Row="7" Grid.Column="2" Margin="25" />
+
+                    <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0 10 0 10">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Click="btnAddUser_Click" Margin="10 0 10 0" x:Name="btnAddUser" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnChangeUser_Click" Margin="10 0 10 0" x:Name="btnChangeUser" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnDeleteUser_Click" Margin="10 0 10 0" x:Name="btnDeleteUser" Grid.Column="2" Content="Архивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnUnArchiveUser_Click" Margin="10 0 10 0" x:Name="btnUnArchiveUser" Grid.Column="3" Content="Разархивировать" Style="{StaticResource DopButtonStyle}"></Button>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Банковские карты" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0">Архив</TextBlock>
+                    <CheckBox x:Name="chArchiveCards" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="chArchiveCards_Checked"  Unchecked="chArchiveCards_Unchecked"></CheckBox>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Grid.ColumnSpan="3" Grid.Row="1">
+                        <Grid>
+                            <ItemsControl ItemsSource="{Binding Card}" x:Name="CardsListView" >
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel HorizontalAlignment="Center"></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="450" Height="280" Margin="10" Grid.Column="1" Grid.Row="0" MouseDown="Border_MouseDown">
+                                            <StackPanel>
+                                                <StackPanel.Background>
+                                                    <ImageBrush ImageSource="/Resources/cardimage.png"/>
+                                                </StackPanel.Background>
+                                                <TextBlock Text="{Binding CardNumber}"  Style="{StaticResource TextBlockStyle}" Foreground="White" Grid.Row="0" Margin="10"/>
+                                                <TextBlock Text="{Binding CardHolder}" Style="{StaticResource TextBlockStyle}" Foreground="White" Grid.Row="1"  Margin="10"/>
+                                                <TextBlock Text="{Binding Validity}" Style="{StaticResource TextBlockStyle}" Foreground="White" Grid.Row="2"  Margin="10"/>
+                                                <TextBlock Text="{Binding Ccv}" Style="{StaticResource TextBlockStyle}" Foreground="White" Grid.Row="3"  Margin="10"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <TextBlock Text="Номер карты" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="tbCardNum" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="Владелец" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="1"/>
+                    <TextBox x:Name="tbCardHolder" Grid.Row="3" Grid.Column="1" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="Срок действия" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="2"/>
+                    <TextBox x:Name="tbCardVal" Grid.Row="3" Grid.Column="2" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="CCV" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox x:Name="tbCardCCV" Grid.Row="5" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="Счёт" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="1"/>
+                    <ComboBox x:Name="tbCardAccount" Grid.Row="5" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                    <TextBlock Text="Причина удаления" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="2"/>
+                    <TextBox x:Name="tbCardDelReason" Grid.Row="5" Grid.Column="2" Style="{StaticResource MaterialTextBox}"/>
+
+                    <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0 10 0 10">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Click="btnAddCard_Click" Margin="10 0 10 0" x:Name="btnAddCard" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnChangeCard_Click" Margin="10 0 10 0" x:Name="btnChangeCard" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnDeleteCard_Click" Margin="10 0 10 0" x:Name="btnDeleteCard" Grid.Column="2" Content="Архивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnUnArchiveCard_Click" Margin="10 0 10 0" x:Name="btnUnArchiveCard" Grid.Column="3" Content="Разархивировать" Style="{StaticResource DopButtonStyle}"></Button>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Счета" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0">Архив</TextBlock>
+                    <CheckBox x:Name="chArchiveAccs" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="chArchiveAccs_Checked"  Unchecked="chArchiveAccs_Unchecked"></CheckBox>
+                    <DataGrid Style="{StaticResource DataGridStyle}" x:Name="dgAccs" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgAccs_SelectionChanged"  AutoGenerateColumns="False" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер счёта" Binding="{Binding IdAccount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Баланс" Binding="{Binding Balance, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Процентная ставка" Binding="{Binding Percent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Вид счёта" Binding="{Binding TypeId, Converter={StaticResource AccountTypesConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Владелец счёта" Binding="{Binding UserAccountId, Converter={StaticResource UsersConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Причина блокировки" Binding="{Binding Account_Deletion_Reason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Номер счёта" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="tbAccNum" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="Баланс" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="1"/>
+                    <TextBox x:Name="tbAccBalance" Grid.Row="3" Grid.Column="1" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="Процентная ставка" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="2"/>
+                    <TextBox x:Name="tbAccPercent" Grid.Row="3" Grid.Column="2" Style="{StaticResource MaterialTextBox}"/>
+                    <TextBlock Text="Вид счёта" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="0"/>
+                    <ComboBox x:Name="cmbAccType" Grid.Row="5" Grid.Column="0" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                    <TextBlock Text="Владелец" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="1"/>
+                    <ComboBox x:Name="cmbAccUser" Grid.Row="5" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                    <TextBlock Text="Причина удаления" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="2"/>
+                    <TextBox x:Name="tbAccDelReason" Grid.Row="5" Grid.Column="2" Style="{StaticResource MaterialTextBox}"/>
+
+                    <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0 10 0 10">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Click="btnAddAccount_Click" Margin="10 0 10 0" x:Name="btnAddAccount" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnChangeAccount_Click" Margin="10 0 10 0" x:Name="btnChangeAccount" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnDeleteAccount_Click" Margin="10 0 10 0" x:Name="btnDeleteAccount" Grid.Column="2" Content="Архивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnUnArchiveAccount_Click" Margin="10 0 10 0" x:Name="btnUnArchiveAccount" Grid.Column="3" Content="Разархивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Кредиты" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0">Архив</TextBlock>
+                    <CheckBox x:Name="chArchiveCredAgs" Grid.Column="1" Checked="chArchiveCredAgs_Checked"  Unchecked="chArchiveCredAgs_Unchecked"></CheckBox>
+                    <TextBlock Text="Владелец кредита" Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.Column="2"/>
+                    <ComboBox x:Name="cmbCredAgUserSort" Grid.Row="0" Grid.Column="3" Style="{StaticResource ComboBoxStyle}" Margin="25" SelectionChanged="cmbCredAgUserSort_SelectionChanged"/>
+                    <DataGrid Style="{StaticResource DataGridStyle}" x:Name="dgCredAgs" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgCredAgs_SelectionChanged"  AutoGenerateColumns="False" ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер кредитного договора" Binding="{Binding IdCreditAgreement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Дата заключения" Binding="{Binding DateDrawing, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Дата расторжения" Binding="{Binding DateTermination, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Процентная ставка" Binding="{Binding CreditRate, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Владелец кредита" Binding="{Binding CreditAgreementUserId, Converter={StaticResource UsersConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="Номер заявки" Binding="{Binding CreditApplicationId, Converter={StaticResource CreditApplicationsConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Номер кредитного договора" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="0" TextWrapping="Wrap"/>
+                    <TextBox x:Name="tbCredAgNum" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}" TextWrapping="Wrap"/>
+                    <TextBlock Text="Дата заключения договора" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap"/>
+                    <DatePicker x:Name="tbCredAgDate1" Grid.Row="3" Grid.Column="1" Margin="25"/>
+                    <TextBlock Text="Дата расторжения" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    <DatePicker x:Name="tbCredAgDate2" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="25"/>
+                    <TextBlock Text="Процентная ставка" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox x:Name="tbCreditRate" Grid.Row="5" Grid.Column="0" Style="{StaticResource MaterialTextBox}" />
+                    <TextBlock Text="Владелец кредита" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="1"/>
+                    <ComboBox x:Name="cmbCredAgUser" Grid.Row="5" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                    <TextBlock Text="Номер кредитной заявки" Style="{StaticResource TextBlockStyle}" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="2"/>
+                    <ComboBox x:Name="cmbCredAgAppID" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+
+                    <Grid Grid.Row="8" Grid.ColumnSpan="4" Margin="0 10 0 10">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Click="btnAddCredAgg_Click"  Margin="10 0 10 0" x:Name="btnAddCredAgg" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnChangeCredAgg_Click"  Margin="10 0 10 0" x:Name="btnChangeCredAgg" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnDeleteCredAgg_Click" Margin="10 0 10 0" x:Name="btnDeleteCredAgg" Grid.Column="2" Content="Архивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                        <Button Click="btnUnArchiveCredAgg_Click"  Margin="10 0 10 0" x:Name="btnUnArchiveCredAgg" Grid.Column="3" Content="Разархивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Заявки" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <TabControl Style="{StaticResource TabControlStyle}">
+
+                        <TabItem Style="{StaticResource TabItemStyle}" Header="Заявки на открытие счёта">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="0.5*"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="0.5*"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" FontWeight="Bold" >Сортировка</TextBlock>
+                                <TextBlock Text="Статус заявки" Style="{StaticResource TextBlockStyle}" Grid.Column="1"/>
+                                <ComboBox x:Name="cmbAccAppStatusSort" Grid.Column="2" Style="{StaticResource ComboBoxStyle}" Margin="15" SelectionChanged="cmbAccAppStatusSort_SelectionChanged"/>
+                                <DataGrid Style="{StaticResource DataGridStyle}" Grid.Row="1" x:Name="dgAccApps" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgAccApps_SelectionChanged"  AutoGenerateColumns="False" ItemsSource="{Binding}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Номер заявки" Binding="{Binding IdAccountApplication, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Вид счёта" Binding="{Binding TypeAccountId, Converter={StaticResource AccountTypesConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Желаемый процент" Binding="{Binding AccountDesiredPercentage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Заявитель" Binding="{Binding AccountApplicationUserId, Converter={StaticResource UsersConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Статус" Binding="{Binding StatusId, Converter={StaticResource ApplicationStatusConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Необходима ли банковская карта" Binding="{Binding  Bank_Card_Needed, Converter={StaticResource ApplicationStatusConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <TextBlock Text="Номер заявки" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="0"/>
+                                <TextBox x:Name="tbAccAppNum" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                                <TextBlock Text="Вид счёта" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="1"/>
+                                <ComboBox x:Name="cmbTypeAccApp" Grid.Row="3" Grid.Column="1" Margin="25" Style="{StaticResource ComboBoxStyle}"/>
+                                <TextBlock Text="Желаемый процент" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="2"/>
+                                <TextBox x:Name="tbAccAppPercent" Grid.Row="3" Grid.Column="2" Margin="25" Style="{StaticResource MaterialTextBox}"/>
+                                <TextBlock Text="Заявитель" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="0"/>
+                                <ComboBox x:Name="cmbAccAppUser" Grid.Row="5" Grid.Column="0" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                                <TextBlock Text="Статус заявки" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="1"/>
+                                <ComboBox x:Name="cmbAccAppStatus" Grid.Row="5" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                                <TextBlock Text="Банковская карта?" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="2"/>
+                                <CheckBox x:Name="cmbAccAppCardNeed" Grid.Row="5" Grid.Column="2"/>
+
+                                <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0 10 0 10">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Click="btnAddAccApp_Click"  Margin="10 0 10 0" x:Name="btnAddAccApp" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnChangeAccApp_Click"  Margin="10 0 10 0" x:Name="btnChangeAccApp" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnDeleteAccApp_Click"  Margin="10 0 10 0" x:Name="btnDeleteAccApp" Grid.Column="2" Content="Отказать" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnUnArchiveAccApp_Click"  Margin="10 0 10 0" x:Name="btnUnArchiveAccApp" Grid.Column="3" Content="На рассмотрение" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnOformAccApp_Click"  Margin="10 0 10 0" x:Name="btnOformAccApp" Grid.Column="4" Content="Оформить" Style="{StaticResource DopButtonStyle}"></Button>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource TabItemStyle}" Header="Заявки на открытие кредитного договора">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="0.5*"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="0.5*"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" FontWeight="Bold" >Сортировка</TextBlock>
+                                <TextBlock Text="Статус заявки" Style="{StaticResource TextBlockStyle}" Grid.Column="1"/>
+                                <ComboBox x:Name="cmbCredAppStatusSort" Grid.Column="2" Style="{StaticResource ComboBoxStyle}" Margin="15" SelectionChanged="cmbCredAppStatusSort_SelectionChanged"/>
+                                <DataGrid Style="{StaticResource DataGridStyle}" Grid.Row="1" x:Name="dgCredApps" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Margin="15" IsReadOnly="True" SelectionChanged="dgCredApps_SelectionChanged"  AutoGenerateColumns="False" ItemsSource="{Binding}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Номер заявки" Binding="{Binding IdCreditApplication, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Сумма заявки" Binding="{Binding ApplicationAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Желаемый процент" Binding="{Binding CreditDesiredPercentage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Заявитель" Binding="{Binding CreditApplicationUserId, Converter={StaticResource UsersConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridTextColumn Header="Статус" Binding="{Binding StatusId, Converter={StaticResource ApplicationStatusConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <TextBlock Text="Номер заявки" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="0"/>
+                                <TextBox x:Name="tbCredAppNum" Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialTextBox}"/>
+                                <TextBlock Text="Сумма заявки" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="1"/>
+                                <TextBox x:Name="tbCredAppAmount" Grid.Row="3" Grid.Column="1" Margin="25" Style="{StaticResource MaterialTextBox}"/>
+                                <TextBlock Text="Желаемый процент" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="2"/>
+                                <TextBox x:Name="tbCredAppPercent" Grid.Row="3" Grid.Column="2" Margin="25" Style="{StaticResource MaterialTextBox}"/>
+                                <TextBlock Text="Заявитель" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="0"/>
+                                <ComboBox x:Name="cmbCredAppUser" Grid.Row="5" Grid.Column="0" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+                                <TextBlock Text="Статус заявки" Style="{StaticResource TextBlockStyle}" Grid.Row="4" Grid.Column="2"/>
+                                <ComboBox x:Name="cmbCredAppStatus" Grid.Row="5" Grid.Column="2" Style="{StaticResource ComboBoxStyle}" Margin="25"/>
+
+                                <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0 10 0 10">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Click="btnAddCredAppg_Click"  Margin="10 0 10 0" x:Name="btnAddCredAppg" Grid.Column="0" Content="Добавить" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnChangeCredAppg_Click"  Margin="10 0 10 0" x:Name="btnChangeCredAppg" Grid.Column="1" Content="Изменить" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnDeleteCredAppg_Click"  Margin="10 0 10 0" x:Name="Оформить" Grid.Column="2" Content="Архивировать" Style="{StaticResource DopButtonStyle}"></Button>
+                                    <Button Click="btnUnArchiveCredAppg_Click"  Margin="10 0 10 0" x:Name="btnUnArchiveCredAppg" Grid.Column="3" Style="{StaticResource DopButtonStyle}">
+                                        <TextBlock Text="Отправить на рассмотрение" TextWrapping="Wrap"></TextBlock>
+                                    </Button>
+                                    <Button Click="btnOformCredApp_Click"  Margin="10 0 10 0" x:Name="btnOformCredApp" Grid.Column="4" Content="Оформить" Style="{StaticResource DopButtonStyle}"></Button>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
